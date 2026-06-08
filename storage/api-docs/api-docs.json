@@ -1,0 +1,289 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "GoJatim Travel API",
+        "description": "Dokumentasi API GoJatim Travel - Sistem pemesanan wisata Jawa Timur",
+        "version": "1.0.0"
+    },
+    "servers": [
+        {
+            "url": "http://127.0.0.1:8000/api/v1"
+        }
+    ],
+    "components": {
+        "securitySchemes": {
+            "bearerAuth": {
+                "type": "http",
+                "scheme": "bearer",
+                "bearerFormat": "JWT"
+            }
+        }
+    },
+    "paths": {
+        "/register": {
+            "post": {
+                "tags": ["Auth"],
+                "summary": "Registrasi user baru",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": ["name","email","password","password_confirmation"],
+                                "properties": {
+                                    "name": {"type": "string", "example": "Budi"},
+                                    "email": {"type": "string", "example": "budi@email.com"},
+                                    "password": {"type": "string", "example": "password123"},
+                                    "password_confirmation": {"type": "string", "example": "password123"}
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {"description": "Registrasi berhasil"},
+                    "422": {"description": "Validasi gagal"}
+                }
+            }
+        },
+        "/login": {
+            "post": {
+                "tags": ["Auth"],
+                "summary": "Login user",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": ["email","password"],
+                                "properties": {
+                                    "email": {"type": "string", "example": "budi@email.com"},
+                                    "password": {"type": "string", "example": "password123"}
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {"description": "Login berhasil, token dikembalikan"},
+                    "401": {"description": "Email atau password salah"}
+                }
+            }
+        },
+        "/me": {
+            "get": {
+                "tags": ["Auth"],
+                "summary": "Lihat profil user yang sedang login",
+                "security": [{"bearerAuth": []}],
+                "responses": {
+                    "200": {"description": "Data profil user"},
+                    "401": {"description": "Unauthorized"}
+                }
+            }
+        },
+        "/logout": {
+            "post": {
+                "tags": ["Auth"],
+                "summary": "Logout user",
+                "security": [{"bearerAuth": []}],
+                "responses": {
+                    "200": {"description": "Berhasil logout"}
+                }
+            }
+        },
+        "/refresh": {
+            "post": {
+                "tags": ["Auth"],
+                "summary": "Refresh JWT token",
+                "security": [{"bearerAuth": []}],
+                "responses": {
+                    "200": {"description": "Token baru dikembalikan"}
+                }
+            }
+        },
+        "/bookings": {
+            "post": {
+                "tags": ["Booking"],
+                "summary": "Buat pemesanan tour baru",
+                "security": [{"bearerAuth": []}],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": ["tour_id","check_in","jumlah_orang"],
+                                "properties": {
+                                    "tour_id": {"type": "integer", "example": 4},
+                                    "check_in": {"type": "string", "format": "date", "example": "2026-08-01"},
+                                    "jumlah_orang": {"type": "integer", "example": 2},
+                                    "catatan": {"type": "string", "example": "Jemput di stasiun Gubeng"}
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {"description": "Pemesanan berhasil dibuat"},
+                    "422": {"description": "Validasi gagal"},
+                    "401": {"description": "Unauthorized"}
+                }
+            }
+        },
+        "/destinations": {
+            "get": {
+                "tags": ["Destination"],
+                "summary": "Lihat semua destinasi",
+                "responses": {
+                    "200": {"description": "List destinasi berhasil diambil"}
+                }
+            },
+            "post": {
+                "tags": ["Destination"],
+                "summary": "Tambah destinasi baru",
+                "security": [{"bearerAuth": []}],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": ["name","kabupaten","provinsi","description"],
+                                "properties": {
+                                    "name": {"type": "string", "example": "Pantai Watu Karung"},
+                                    "kabupaten": {"type": "string", "example": "Pacitan"},
+                                    "provinsi": {"type": "string", "example": "Jawa Timur"},
+                                    "description": {"type": "string", "example": "Pantai tersembunyi dengan ombak kelas dunia"},
+                                    "image": {"type": "string", "example": "images/destinations/watu-karung.jpg"}
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {"description": "Destinasi berhasil ditambahkan"},
+                    "422": {"description": "Validasi gagal"}
+                }
+            }
+        },
+        "/destinations/{id}": {
+            "get": {
+                "tags": ["Destination"],
+                "summary": "Lihat detail destinasi",
+                "parameters": [
+                    {"name": "id", "in": "path", "required": true, "schema": {"type": "integer"}, "example": 1}
+                ],
+                "responses": {
+                    "200": {"description": "Detail destinasi"},
+                    "404": {"description": "Destinasi tidak ditemukan"}
+                }
+            },
+            "put": {
+                "tags": ["Destination"],
+                "summary": "Update destinasi",
+                "security": [{"bearerAuth": []}],
+                "parameters": [
+                    {"name": "id", "in": "path", "required": true, "schema": {"type": "integer"}, "example": 1}
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "name": {"type": "string", "example": "Pantai Watu Karung Updated"},
+                                    "kabupaten": {"type": "string", "example": "Pacitan"},
+                                    "provinsi": {"type": "string", "example": "Jawa Timur"},
+                                    "description": {"type": "string", "example": "Deskripsi baru"}
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {"description": "Destinasi berhasil diperbarui"},
+                    "404": {"description": "Destinasi tidak ditemukan"}
+                }
+            },
+            "delete": {
+                "tags": ["Destination"],
+                "summary": "Hapus destinasi",
+                "security": [{"bearerAuth": []}],
+                "parameters": [
+                    {"name": "id", "in": "path", "required": true, "schema": {"type": "integer"}, "example": 1}
+                ],
+                "responses": {
+                    "200": {"description": "Destinasi berhasil dihapus"},
+                    "404": {"description": "Destinasi tidak ditemukan"}
+                }
+            }
+        },
+        "/tours": {
+            "get": {
+                "tags": ["Tour"],
+                "summary": "Lihat semua tour",
+                "responses": {
+                    "200": {"description": "List tour berhasil diambil"}
+                }
+            }
+        },
+        "/tours/{id}": {
+            "get": {
+                "tags": ["Tour"],
+                "summary": "Lihat detail tour",
+                "parameters": [
+                    {"name": "id", "in": "path", "required": true, "schema": {"type": "integer"}, "example": 1}
+                ],
+                "responses": {
+                    "200": {"description": "Detail tour"},
+                    "404": {"description": "Tour tidak ditemukan"}
+                }
+            }
+        },
+        "/api-keys": {
+            "get": {
+                "tags": ["API Key"],
+                "summary": "Lihat semua API key milik user",
+                "security": [{"bearerAuth": []}],
+                "responses": {
+                    "200": {"description": "List API key berhasil diambil"},
+                    "401": {"description": "Unauthorized"}
+                }
+            },
+            "post": {
+                "tags": ["API Key"],
+                "summary": "Buat API key baru",
+                "security": [{"bearerAuth": []}],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": ["name"],
+                                "properties": {
+                                    "name": {"type": "string", "example": "Key untuk Postman"}
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {"description": "API key berhasil dibuat"},
+                    "401": {"description": "Unauthorized"}
+                }
+            }
+        },
+        "/api-keys/{id}": {
+            "delete": {
+                "tags": ["API Key"],
+                "summary": "Nonaktifkan API key",
+                "security": [{"bearerAuth": []}],
+                "parameters": [
+                    {"name": "id", "in": "path", "required": true, "schema": {"type": "integer"}, "example": 1}
+                ],
+                "responses": {
+                    "200": {"description": "API key berhasil dinonaktifkan"},
+                    "401": {"description": "Unauthorized"}
+                }
+            }
+        }
+    }
+}
