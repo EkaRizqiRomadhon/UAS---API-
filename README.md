@@ -77,8 +77,9 @@ Here is a brief overview of the main API routes available in this project:
 
 ## 👨‍💻 Contributors
 
-* **Eka Rizqi Romadhon**
-* **D Septian R**
+* **[Eka Rizqi Romadhon](https://github.com/EkaRizqiRomadhon)**
+* **[D Septian R](https://github.com/DseptianR)**
+* **[Billy Bayhakhi](https://github.com/billybayhakhi)**
 
 ---
 *Built for Web API Development UAS Project*
