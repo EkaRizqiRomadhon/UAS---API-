@@ -26,12 +26,12 @@ Route::prefix('v1')->group(function () {
         Route::put('destinations/{id}', [DestinationController::class, 'update']); // Update (Ini yang tadi kurang)
         Route::delete('destinations/{id}', [DestinationController::class, 'destroy']); // Delete (Ini yang tadi kurang)
 
-        // 🔹 CRUD TOURS (Sekalian gue lengkapin biar ga error 405 lagi nanti)
-        Route::get('tours',        [TourController::class, 'index']);       // Read All
-        Route::post('tours',       [TourController::class, 'store']);       // Create
-        Route::get('tours/{id}',   [TourController::class, 'show']);        // Read Detail
-        Route::put('tours/{id}',   [TourController::class, 'update']);      // Update
-        Route::delete('tours/{id}', [TourController::class, 'destroy']);    // Delete
+        // 🔹 CRUD TOURS
+        Route::get('tours',        [TourController::class, 'index']);        # READ ALL 
+        Route::post('tours',       [TourController::class, 'store']);        # CREATE
+        Route::get('tours/{id}',   [TourController::class, 'show']);         # READ DETAIL
+        Route::put('tours/{id}',   [TourController::class, 'update']);       # UPDATE
+        Route::delete('tours/{id}', [TourController::class, 'destroy']);     # DELETE
     });
 
 });
@@ -43,20 +43,22 @@ Route::prefix('v1')->middleware('auth:api')->group(function () {
 
     // Profile & auth
     Route::prefix('auth')->group(function () {
-        Route::get('me',      [AuthController::class, 'me']);
-        Route::post('logout', [AuthController::class, 'logout']);
-        Route::post('refresh', [AuthController::class, 'refresh']);
+         Route::get('me',      [AuthController::class, 'me']);              # CEK PROFILE
+        Route::put('me',      [AuthController::class, 'updateProfile']);    # EDIT PROFILE
+        Route::delete('me',   [AuthController::class, 'deleteAccount']);    # DELETE AKUN 
+        Route::post('logout', [AuthController::class, 'logout']);           # LOGOUT
+        Route::post('refresh', [AuthController::class, 'refresh']);         # REFRESH TOKEN 
     });
 
     // Kelola API key (user yang login)
     Route::prefix('api-keys')->group(function () {
-        Route::get('/',       [ApiKeyController::class, 'index']);
-        Route::post('/',      [ApiKeyController::class, 'store']);
-        Route::delete('/{id}', [ApiKeyController::class, 'destroy']);
+        Route::get('/',       [ApiKeyController::class, 'index']);          # MENAMPILKAN LIST API KEY
+        Route::post('/',      [ApiKeyController::class, 'store']);          # MEMBUAT API KEY
+        Route::delete('/{id}', [ApiKeyController::class, 'destroy']);       # MENGHAPUS API KEY
     });
     
     // Booking
-    Route::post('bookings', [BookingController::class, 'store']);
+    Route::post('bookings', [BookingController::class, 'store']);           # MEMBUAT BOOKING
 
     Route::get('basic-secure-data', function() {
         return response()->json([
