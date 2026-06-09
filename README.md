@@ -66,12 +66,15 @@ Berikut adalah ringkasan rute utama API yang tersedia pada proyek ini:
 
 | Endpoint | Method | Deskripsi |
 | :--- | :---: | :--- |
-| `/api/register` | `POST` | Mendaftarkan pengguna baru |
-| `/api/login` | `POST` | Autentikasi pengguna dan mendapatkan token |
-| `/api/logout` | `POST` | Keluar (logout) dan membatalkan token |
-| `/api/destinations` | `GET, POST, PUT, DELETE` | Mengelola data destinasi wisata |
-| `/api/tours` | `GET, POST, PUT, DELETE` | Mengelola data paket tur |
-| `/api/bookings` | `GET, POST` | Mengelola data pemesanan (booking) pengguna |
+| `/api/v1/auth/register` | `POST` | Mendaftarkan pengguna baru |
+| `/api/v1/auth/login` | `POST` | Autentikasi pengguna dan mendapatkan token |
+| `/api/v1/auth/me` | `GET, PUT, DELETE` | Cek, Update, dan Hapus Akun/Profil |
+| `/api/v1/auth/refresh` | `POST` | Memperbarui (Refresh) Token |
+| `/api/v1/auth/logout` | `POST` | Keluar (logout) dan membatalkan token |
+| `/api/v1/api-keys` | `GET, POST, DELETE` | Mengelola API Key milik pengguna |
+| `/api/v1/destinations` | `GET, POST, PUT, DELETE` | Mengelola data destinasi wisata |
+| `/api/v1/tours` | `GET, POST, PUT, DELETE` | Mengelola data paket tur |
+| `/api/v1/bookings` | `POST` | Membuat pesanan (booking) |
 
 *(Catatan: Sebagian besar endpoint memerlukan otorisasi Bearer Token / API Key pada header request).*
 
