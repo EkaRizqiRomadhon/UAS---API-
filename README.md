@@ -1,85 +1,85 @@
-# 🌍 Mlaku Travel API - UAS Project
+# 🌍 Go Jatim Travel API - Projek UAS
 
-A robust RESTful API built with Laravel for managing a travel booking system. This project was developed as a Final Semester Exam (Ujian Akhir Semester - UAS) project, providing comprehensive endpoints for destinations, tours, bookings, and secure authentication.
+RESTful API tangguh yang dibangun menggunakan Laravel untuk mengelola sistem pemesanan perjalanan (travel booking). Proyek ini dikembangkan sebagai tugas Ujian Akhir Semester (UAS), yang menyediakan berbagai endpoint lengkap untuk manajemen destinasi, paket tur, pemesanan, serta autentikasi yang aman.
 
-## 🚀 Features
+## 🚀 Fitur Utama
 
-* **🔐 Authentication System:** Secure user registration, login, and logout using API tokens.
-* **🔑 API Key Management:** Endpoint access control using securely generated API keys.
-* **📍 Destination Management:** Full CRUD operations to manage travel destinations.
-* **🗺️ Tour Packages:** Endpoints to manage tour details and itineraries.
-* **🎫 Booking System:** Allow users to book destinations and tours easily.
+* **🔐 Sistem Autentikasi:** Registrasi, login, dan logout pengguna yang aman menggunakan token API.
+* **🔑 Manajemen API Key:** Kontrol akses endpoint menggunakan API key yang dibuat secara aman.
+* **📍 Manajemen Destinasi:** Operasi CRUD penuh untuk mengelola data destinasi wisata di Jawa Timur.
+* **🗺️ Paket Tur:** Endpoint untuk mengelola detail tur dan rencana perjalanan (itinerary).
+* **🎫 Sistem Booking:** Memungkinkan pengguna untuk memesan destinasi wisata dan paket tur dengan mudah.
 
-## 🛠️ Technology Stack
+## 🛠️ Teknologi yang Digunakan
 
 * **Framework:** Laravel (PHP)
 * **Database:** MySQL
-* **Architecture:** RESTful API
+* **Arsitektur:** RESTful API
 
-## 📋 Prerequisites
+## 📋 Persyaratan Sistem
 
-Before you begin, ensure you have met the following requirements:
+Sebelum memulai, pastikan Anda telah menginstal beberapa perangkat lunak berikut:
 * PHP >= 8.2
 * Composer
 * MySQL Database Server
 * Git
 
-## ⚙️ Installation Guide
+## ⚙️ Panduan Instalasi
 
-1. **Clone the repository**
+1. **Clone repository**
    ```bash
    git clone https://github.com/EkaRizqiRomadhon/UAS---API-.git
    cd "UAS API"
    ```
 
-2. **Install Dependencies**
+2. **Instal Dependensi**
    ```bash
    composer install
    ```
 
-3. **Environment Setup**
-   Copy the example environment file and configure your database credentials:
+3. **Konfigurasi Environment**
+   Salin file environment contoh dan atur kredensial database Anda:
    ```bash
    cp .env.example .env
    ```
-   *Make sure to update `DB_DATABASE`, `DB_USERNAME`, and `DB_PASSWORD` in your `.env` file.*
+   *Pastikan Anda mengubah nilai `DB_DATABASE`, `DB_USERNAME`, dan `DB_PASSWORD` di dalam file `.env`.*
 
 4. **Generate Application Key**
    ```bash
    php artisan key:generate
    ```
 
-5. **Run Migrations**
+5. **Jalankan Migrasi**
    ```bash
    php artisan migrate
    ```
 
-6. **Start the Development Server**
+6. **Jalankan Server Development**
    ```bash
    php artisan serve
    ```
-   The API will be accessible at `http://localhost:8000/api`
+   API dapat diakses melalui `http://localhost:8000/api`
 
-## 📚 API Endpoints Overview
+## 📚 Ringkasan Endpoint API
 
-Here is a brief overview of the main API routes available in this project:
+Berikut adalah ringkasan rute utama API yang tersedia pada proyek ini:
 
-| Endpoint | Method | Description |
+| Endpoint | Method | Deskripsi |
 | :--- | :---: | :--- |
-| `/api/register` | `POST` | Register a new user |
-| `/api/login` | `POST` | Authenticate user and get token |
-| `/api/logout` | `POST` | Logout and invalidate token |
-| `/api/destinations` | `GET, POST, PUT, DELETE` | Manage destinations |
-| `/api/tours` | `GET, POST, PUT, DELETE` | Manage tours |
-| `/api/bookings` | `GET, POST` | Manage user bookings |
+| `/api/register` | `POST` | Mendaftarkan pengguna baru |
+| `/api/login` | `POST` | Autentikasi pengguna dan mendapatkan token |
+| `/api/logout` | `POST` | Keluar (logout) dan membatalkan token |
+| `/api/destinations` | `GET, POST, PUT, DELETE` | Mengelola data destinasi wisata |
+| `/api/tours` | `GET, POST, PUT, DELETE` | Mengelola data paket tur |
+| `/api/bookings` | `GET, POST` | Mengelola data pemesanan (booking) pengguna |
 
-*(Note: Endpoints may require Bearer Token / API Key authorization in the request headers).*
+*(Catatan: Sebagian besar endpoint memerlukan otorisasi Bearer Token / API Key pada header request).*
 
-## 👨‍💻 Contributors
+## 👨‍💻 Kontributor
 
 * **[Eka Rizqi Romadhon](https://github.com/EkaRizqiRomadhon)**
 * **[D Septian R](https://github.com/DseptianR)**
 * **[Billy Bayhakhi](https://github.com/billybayhakhi)**
 
 ---
-*Built for Web API Development UAS Project*
+*Dibuat untuk Tugas Ujian Akhir Semester (UAS) - Web API Development*
